@@ -2,19 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Tile : MonoBehaviour
+public class ObstacleTile : MonoBehaviour
 {
-    public static Tile instance;
     public int moveTimer;
     private Camera mainCamera;
-    // Start is called before the first frame update
-    void Awake()
-    {
-        if (instance == null)
-        {
-            instance = this;
-        }
-    }
+
     void Start()
     {
         mainCamera = Camera.main;
