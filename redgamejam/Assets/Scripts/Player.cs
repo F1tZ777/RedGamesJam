@@ -11,10 +11,13 @@ public class Player : MonoBehaviour
     public LayerMask obstacle;
     public LayerMask tile;
     private float lowestPos;
+    private Animator animator;
 
     // Start is called before the first frame update
     void Start()
     {
+        animator = GetComponent<Animator>();
+        animator.SetTrigger("Down");
         lowestPos = transform.position.y;
         StartCoroutine("moveUp");
     }
@@ -43,6 +46,7 @@ public class Player : MonoBehaviour
             if (Input.touches[0].position.y >= startPos.y + swipeDistance)
             {
                 isFingerDown = false;
+                animator.SetTrigger("Up");
                 if (upTileCheck.collider != null)
                 {
                     Tile tile = upTileCheck.collider.GetComponent<Tile>();
@@ -61,6 +65,7 @@ public class Player : MonoBehaviour
             else if (Input.touches[0].position.y <= startPos.y - swipeDistance)
             {
                 isFingerDown = false;
+                animator.SetTrigger("Down");
                 if (downTileCheck.collider != null)
                 {
                     Tile tile = downTileCheck.collider.GetComponent<Tile>();
@@ -79,6 +84,7 @@ public class Player : MonoBehaviour
             else if (Input.touches[0].position.x <= startPos.x + swipeDistance)
             {
                 isFingerDown = false;
+                animator.SetTrigger("Right");
                 if (rightTileCheck.collider != null)
                 {
                     Tile tile = rightTileCheck.collider.GetComponent<Tile>();
@@ -97,6 +103,7 @@ public class Player : MonoBehaviour
             else if (Input.touches[0].position.x <= startPos.x - swipeDistance)
             {
                 isFingerDown = false;
+                animator.SetTrigger("Left");
                 if (leftTileCheck.collider != null)
                 {
                     Tile tile = leftTileCheck.collider.GetComponent<Tile>();
@@ -131,6 +138,7 @@ public class Player : MonoBehaviour
             if (Input.mousePosition.y >= startPos.y + swipeDistance)
             {
                 isFingerDown = false;
+                animator.SetTrigger("Up");
                 if (upTileCheck.collider != null)
                 {
                     Tile tile = upTileCheck.collider.GetComponent<Tile>();
@@ -149,6 +157,7 @@ public class Player : MonoBehaviour
             else if (Input.mousePosition.y <= startPos.y - swipeDistance)
             {
                 isFingerDown = false;
+                animator.SetTrigger("Down");
                 if (downTileCheck.collider != null)
                 {
                     Tile tile = downTileCheck.collider.GetComponent<Tile>();
@@ -168,6 +177,7 @@ public class Player : MonoBehaviour
             else if (Input.mousePosition.x >= startPos.x + swipeDistance)
             {
                 isFingerDown = false;
+                animator.SetTrigger("Right");
                 if (rightTileCheck.collider != null)
                 {
                     Tile tile = rightTileCheck.collider.GetComponent<Tile>();
@@ -186,6 +196,7 @@ public class Player : MonoBehaviour
             else if (Input.mousePosition.x <= startPos.x - swipeDistance)
             {
                 isFingerDown = false;
+                animator.SetTrigger("Left");
                 if (leftTileCheck.collider != null)
                 {
                     Tile tile = leftTileCheck.collider.GetComponent<Tile>();

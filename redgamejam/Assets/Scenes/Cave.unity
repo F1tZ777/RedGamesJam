@@ -778,8 +778,9 @@ GameObject:
   - component: {fileID: 663412282}
   - component: {fileID: 663412281}
   - component: {fileID: 663412280}
+  - component: {fileID: 663412285}
   m_Layer: 5
-  m_Name: Score
+  m_Name: Ui
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -886,6 +887,26 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
+--- !u!95 &663412285
+Animator:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 663412279}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: c989ea92263845241a7c1c54ea689ac7, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &728123575
 GameObject:
   m_ObjectHideFlags: 0
@@ -963,8 +984,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 728123575}
   m_LocalRotation: {x: 0, y: -0.7071068, z: 0.7071068, w: 0}
-  m_LocalPosition: {x: 1.9953, y: 5.4946, z: 0.035887755}
-  m_LocalScale: {x: 0.6460637, y: 1, z: 1.1506673}
+  m_LocalPosition: {x: 2, y: 5.5, z: 10}
+  m_LocalScale: {x: 0.65, y: 1, z: 1.15}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -1178,7 +1199,7 @@ GameObject:
   - component: {fileID: 1284077593}
   - component: {fileID: 1284077592}
   m_Layer: 5
-  m_Name: Depth (1)
+  m_Name: Dura
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
