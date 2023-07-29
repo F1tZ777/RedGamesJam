@@ -9,15 +9,23 @@ public class SceneChanger : MonoBehaviour
     public void play()
     {
         UnityEngine.SceneManagement.SceneManager.LoadScene("UpgradesStore");
+        SoundManager.Instance.PlaySound("UIButtonSFX");
     }
 
     public void back()
     {
         UnityEngine.SceneManagement.SceneManager.LoadScene("MainMenu");
+        SoundManager.Instance.PlaySound("UIButtonSFX");
     }
 
     public void resume()
     {
-        UnityEngine.SceneManagement.SceneManager.LoadScene("Drilling");
+        UnityEngine.SceneManagement.SceneManager.LoadScene("Cave");
+        SoundManager.Instance.PlaySound("UIButtonSFX");
+    }
+
+    public void audioButton()
+    {
+        SoundManager.Instance.PlaySound("UIButtonSFX");
     }
 }

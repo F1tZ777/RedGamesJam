@@ -23,9 +23,9 @@ public class TileManager : MonoBehaviour
         {
             for (int y = 0; y < _height; y++)
             {
-                if (x != 2 || y != 7)
+                if (y<7)
                     Instantiate(_tile, new Vector3(x, y), Quaternion.identity);
-                else
+                else if (x == 2 && y ==7)
                     Instantiate(_player, new Vector3(x, y), Quaternion.identity);
             }
         }
