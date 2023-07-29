@@ -125,7 +125,7 @@ GameObject:
   - component: {fileID: -4892260270973580523}
   - component: {fileID: -7549399353557450886}
   - component: {fileID: -3705650779463236886}
-  - component: {fileID: -2018171486833665407}
+  - component: {fileID: 7268530290630868538}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -284,7 +284,7 @@ MonoBehaviour:
   maxDurability: 100
   currentDurability: 0
   money: 0
---- !u!95 &-2018171486833665407
+--- !u!95 &7268530290630868538
 Animator:
   serializedVersion: 4
   m_ObjectHideFlags: 0
