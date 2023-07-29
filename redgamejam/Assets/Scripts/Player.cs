@@ -149,7 +149,10 @@ public class Player : MonoBehaviour
                     PlayerData.instance.currentDurability = PlayerData.instance.currentDurability - 1;
                 }
                 else if (upObsCheck.collider != null)
+                {
                     PlayerData.instance.currentDurability = PlayerData.instance.currentDurability - 1;
+                    SoundManager.Instance.PlaySound("ObstacleHit");
+                }
                 else
                     transform.position = new Vector2(transform.position.x, transform.position.y + 1f);
                 Debug.Log("Up");
@@ -168,7 +171,10 @@ public class Player : MonoBehaviour
                     PlayerData.instance.currentDurability = PlayerData.instance.currentDurability - 1;
                 }
                 else if (downObsCheck.collider != null)
+                {
                     PlayerData.instance.currentDurability = PlayerData.instance.currentDurability - 1;
+                    SoundManager.Instance.PlaySound("ObstacleHit");
+                }
                 else
                     transform.position = new Vector2(transform.position.x, transform.position.y - 1f);
 
@@ -188,7 +194,10 @@ public class Player : MonoBehaviour
                     PlayerData.instance.currentDurability = PlayerData.instance.currentDurability - 1;
                 }
                 else if (rightObsCheck.collider != null)
+                {
                     PlayerData.instance.currentDurability = PlayerData.instance.currentDurability - 1;
+                    SoundManager.Instance.PlaySound("ObstacleHit");
+                }
                 else
                     transform.position = new Vector2(transform.position.x + 1f, transform.position.y);
                 Debug.Log("Right");
@@ -207,7 +216,10 @@ public class Player : MonoBehaviour
                     PlayerData.instance.currentDurability = PlayerData.instance.currentDurability - 1;
                 }
                 else if (leftObsCheck.collider != null)
+                {
                     PlayerData.instance.currentDurability = PlayerData.instance.currentDurability - 1;
+                    SoundManager.Instance.PlaySound("ObstacleHit");
+                }
                 else
                     transform.position = new Vector2(transform.position.x - 1f, transform.position.y);
                 Debug.Log("Left");

@@ -22,6 +22,7 @@ public class SceneChanger : MonoBehaviour
     {
         UnityEngine.SceneManagement.SceneManager.LoadScene("Cave");
         SoundManager.Instance.PlaySound("UIButtonSFX");
+        SoundManager.Instance.StopMusic();
     }
 
     public void audioButton()

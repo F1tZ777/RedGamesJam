@@ -13,6 +13,7 @@ public class TileManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        SoundManager.Instance.PlayMusic("CaveBGM");
         GenerateGrid();
         StartCoroutine("spawnTile");
     }

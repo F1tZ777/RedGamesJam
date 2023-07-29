@@ -52,5 +52,6 @@ public class Tile : MonoBehaviour
     {
         Destroy(this.gameObject);
         PlayerData.instance.money += 1;
+        SoundManager.Instance.PlaySound("BlockBreak");
     }
 }

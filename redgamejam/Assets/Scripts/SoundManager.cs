@@ -59,6 +59,11 @@ public class SoundManager : MonoBehaviour
         }
     }
 
+    public void StopMusic()
+    {
+        musicSource.Stop();
+    }
+
     public void ToggleMusic()
     {
         musicSource.mute = !musicSource.mute;
