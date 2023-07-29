@@ -6,6 +6,8 @@ public class Tile : MonoBehaviour
 {
     public static Tile instance;
     public int moveTimer;
+    public int maxHP = 1;
+    public int currentHP;
     private Camera mainCamera;
     // Start is called before the first frame update
     void Awake()
@@ -17,6 +19,7 @@ public class Tile : MonoBehaviour
     }
     void Start()
     {
+        currentHP = maxHP;
         mainCamera = Camera.main;
         StartCoroutine("moveUp");
     }
@@ -48,5 +51,6 @@ public class Tile : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D collision)
     {
         Destroy(this.gameObject);
+        PlayerData.instance.money += 1;
     }
 }

@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 8221600784228725815}
   - component: {fileID: -4892260270973580523}
   - component: {fileID: -7549399353557450886}
+  - component: {fileID: -3705650779463236886}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -104,6 +105,9 @@ MonoBehaviour:
   obstacle:
     serializedVersion: 2
     m_Bits: 8
+  tile:
+    serializedVersion: 2
+    m_Bits: 64
 --- !u!61 &-4892260270973580523
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -151,3 +155,17 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
+--- !u!114 &-3705650779463236886
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5255167953331431960}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 68e82fe119353a34480a9a9848255445, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  drillPow: 1
+  score: 0

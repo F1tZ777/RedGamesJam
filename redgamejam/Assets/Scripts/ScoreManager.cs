@@ -6,16 +6,30 @@ using TMPro;
 
 public class ScoreManager : MonoBehaviour
 {
+    public static ScoreManager instance;
     public int score, highscore;
-    public TMP_Text scoreText, highscoreText;
+    public TMP_Text scoreText, highscoreText, duraText, moneyText;
+
+    void Awake()
+    {
+        if (instance == null)
+        {
+            instance = this;
+            DontDestroyOnLoad(gameObject);
+        }
+        else
+            Destroy(gameObject);
+    }
 
     // Update is called once per frame
     void Update()
     {
         scoreText.text = score.ToString();
-        highscoreText.text = highscore.ToString();
+        duraText.text = PlayerData.instance.currentDurability.ToString();
+        moneyText.text = PlayerData.instance.money.ToString();
+        // highscoreText.text = highscore.ToString();
 
-        if(score > highscore)
+        if (score > highscore)
         {
             highscore = score;
         }
