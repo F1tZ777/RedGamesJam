@@ -11,7 +11,7 @@ public class TileManager : MonoBehaviour
     [SerializeField] GameObject _obstacleTile;
     [SerializeField] GameObject _finishLine;
     [SerializeField] GameObject _player;
-    private int i = 5;
+    [SerializeField] private int spawnAmt = 3;
     private int sameRowSpawn = 0;
     // Start is called before the first frame update
     void Start()
@@ -39,7 +39,7 @@ public class TileManager : MonoBehaviour
 
     private IEnumerator spawnTile()
     {
-        while (i != 0)
+        while (spawnAmt != 0)
         {
             yield return new WaitForSeconds(Tile.instance.moveTimer);
             for (int x = 0; x < _width; x++)
@@ -56,7 +56,7 @@ public class TileManager : MonoBehaviour
                         sameRowSpawn -= 2;
                 }
             }
-            i--;
+            spawnAmt--;
         }
         Instantiate(_finishLine, new Vector3(2, 0), Quaternion.identity);
     }
