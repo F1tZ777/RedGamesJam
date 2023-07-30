@@ -9,6 +9,7 @@ public class Tile : MonoBehaviour
     public int maxHP = 1;
     public int currentHP;
     private Camera mainCamera;
+    [SerializeField] GameObject particlePrefab;
     // Start is called before the first frame update
     void Awake()
     {
@@ -51,6 +52,7 @@ public class Tile : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D collision)
     {
         Destroy(this.gameObject);
+        Instantiate(particlePrefab, transform.position, Quaternion.identity);
         PlayerData.instance.money += 1;
         SoundManager.Instance.PlaySound("BlockBreak");
     }
