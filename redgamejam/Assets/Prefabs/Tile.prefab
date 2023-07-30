@@ -102,6 +102,8 @@ MonoBehaviour:
   moveTimer: 1
   maxHP: 1
   currentHP: 0
+  stopDuration: 0.8
+  moveDuration: 0.2
 --- !u!50 &-8239296832626603359
 Rigidbody2D:
   serializedVersion: 4
