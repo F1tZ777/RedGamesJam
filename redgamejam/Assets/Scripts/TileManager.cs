@@ -39,7 +39,7 @@ public class TileManager : MonoBehaviour
 
     private IEnumerator spawnTile()
     {
-        while (true)
+        while (spawnAmt != 0)
         {
             yield return new WaitForSeconds(Tile.instance.moveTimer);
             for (int x = 0; x < _width; x++)
