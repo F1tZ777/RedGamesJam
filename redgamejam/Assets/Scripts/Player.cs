@@ -4,15 +4,20 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
+    public static Player instance;
     public int moveTimer;
     private Vector2 startPos;
     [SerializeField] private int swipeDistance = 50;
     private bool isFingerDown;
-    public LayerMask obstacle;
-    public LayerMask tile;
+    public LayerMask obstacle, tile, finishLine;
     private float lowestPos;
     private Animator animator;
 
+    void Awake()
+    {
+        if (instance == null)
+            instance = this;
+    }
     // Start is called before the first frame update
     void Start()
     {
@@ -34,6 +39,9 @@ public class Player : MonoBehaviour
         RaycastHit2D upTileCheck = Physics2D.Raycast(transform.position, Vector2.up, 1f, tile);
         RaycastHit2D leftTileCheck = Physics2D.Raycast(transform.position, Vector2.left, 1f, tile);
         RaycastHit2D rightTileCheck = Physics2D.Raycast(transform.position, Vector2.right, 1f, tile);
+
+        RaycastHit2D finishLineCheck = Physics2D.Raycast(transform.position, Vector2.down, 1f, finishLine);
+
 
         // Controls For mobile
         if (isFingerDown == false && Input.touchCount > 0 && Input.touches[0].phase == TouchPhase.Began)
@@ -235,6 +243,14 @@ public class Player : MonoBehaviour
         {
             ScoreManager.instance.AddScore(10);
             lowestPos = transform.position.y;
+        }
+
+        if (finishLineCheck.collider)
+        {
+            Time.timeScale = 2f;
+            BGScroller.instance.scrollspeed = -5f;
+            StopCoroutine("moveUp");
+            animator.SetTrigger("Idle");
         }
     }
 

@@ -4,9 +4,18 @@ using UnityEngine;
 
 public class BGScroller : MonoBehaviour
 {
-    [SerializeField] private float scrollspeed = 0.5f;
+    public static BGScroller instance;
+    public float scrollspeed = 0.5f;
     private float offset;
     private Material mat;
+
+    void Awake()
+    {
+        if (instance == null)
+        {
+            instance = this;
+        }
+    }
     // Start is called before the first frame update
     void Start()
     {

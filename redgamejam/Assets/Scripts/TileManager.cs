@@ -9,12 +9,16 @@ public class TileManager : MonoBehaviour
     [SerializeField] private Transform _cam;
     [SerializeField] GameObject _tile;
     [SerializeField] GameObject _obstacleTile;
+    [SerializeField] GameObject _finishLine;
     [SerializeField] GameObject _player;
+    private int i = 5;
+    private int sameRowSpawn = 0;
     // Start is called before the first frame update
     void Start()
     {
         SoundManager.Instance.PlayMusic("CaveBGM");
         GenerateGrid();
+
         StartCoroutine("spawnTile");
     }
 
@@ -24,9 +28,9 @@ public class TileManager : MonoBehaviour
         {
             for (int y = 0; y < _height; y++)
             {
-                if (y<7)
+                if (y < 7)
                     Instantiate(_tile, new Vector3(x, y), Quaternion.identity);
-                else if (x == 2 && y ==7)
+                else if (x == 2 && y == 7)
                     Instantiate(_player, new Vector3(x, y), Quaternion.identity);
             }
         }
@@ -35,17 +39,25 @@ public class TileManager : MonoBehaviour
 
     private IEnumerator spawnTile()
     {
-        while (true)
+        while (i != 0)
         {
             yield return new WaitForSeconds(Tile.instance.moveTimer);
             for (int x = 0; x < _width; x++)
             {
-                if (Random.Range(0, 100) >= 90)
+                if (Random.Range(0, 100) >= 90 && sameRowSpawn <= 3)
+                {
                     Instantiate(_obstacleTile, new Vector3(x, 0), Quaternion.identity);
+                    sameRowSpawn++;
+                }
                 else
+                {
                     Instantiate(_tile, new Vector3(x, 0), Quaternion.identity);
-
+                    if (sameRowSpawn >= 2)
+                        sameRowSpawn -= 2;
+                }
             }
+            i--;
         }
+        // Instantiate(_finishLine, new Vector3(2, 0), Quaternion.identity);
     }
 }

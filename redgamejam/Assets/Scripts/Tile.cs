@@ -5,7 +5,7 @@ using UnityEngine;
 public class Tile : MonoBehaviour
 {
     public static Tile instance;
-    public int moveTimer;
+    public float moveTimer;
     public int maxHP = 1;
     public int currentHP;
     private Camera mainCamera;

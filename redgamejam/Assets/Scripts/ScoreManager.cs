@@ -13,9 +13,8 @@ public class ScoreManager : MonoBehaviour
     void Awake()
     {
         if (instance == null)
-        {
             instance = this;
-        }
+
     }
 
     // Update is called once per frame
