@@ -9,6 +9,7 @@ public class PlayerData : MonoBehaviour
     public int maxDurability = 100;
     public int currentDurability;
     public int money;
+    public int repairkit = 0;
     // Start is called before the first frame update
     void Awake()
     {
