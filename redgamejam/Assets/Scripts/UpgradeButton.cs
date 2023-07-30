@@ -2,11 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 public class UpgradeButton : MonoBehaviour
 {
     [SerializeField] GameObject _super, _ultra;
     [SerializeField] Button _upgradebar;
+    public TMP_Text kitamounttext;
 
     public void Upgrade()
     {
@@ -25,5 +27,18 @@ public class UpgradeButton : MonoBehaviour
             PlayerData.instance.maxDurability = 300;
             PlayerData.instance.money -= 400;
         }
+    }
+
+    public void RepairKitInventory()
+    {
+        /*if (PlayerData.instance.money >= 50)
+        {*/
+            PlayerData.instance.repairkit += 1;
+        //}
+    }
+
+    private void Update()
+    {
+        kitamounttext.text = PlayerData.instance.repairkit.ToString();
     }
 }
