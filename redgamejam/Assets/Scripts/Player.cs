@@ -12,6 +12,7 @@ public class Player : MonoBehaviour
     public LayerMask obstacle, tile, finishLine;
     private float lowestPos;
     private Animator animator;
+    public bool canInput;
 
     void Awake()
     {
@@ -21,6 +22,8 @@ public class Player : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        Time.timeScale = 1f;
+        canInput = true;
         animator = GetComponent<Animator>();
         animator.SetTrigger("Down");
         lowestPos = transform.position.y;
@@ -42,201 +45,203 @@ public class Player : MonoBehaviour
 
         RaycastHit2D finishLineCheck = Physics2D.Raycast(transform.position, Vector2.down, 1f, finishLine);
 
-
-        // Controls For mobile
-        if (isFingerDown == false && Input.touchCount > 0 && Input.touches[0].phase == TouchPhase.Began)
+        if (canInput)
         {
-            startPos = Input.touches[0].position;
-            isFingerDown = true;
-        }
-        if (isFingerDown == true && Input.touchCount > 0)
-        {
-            if (Input.touches[0].position.y >= startPos.y + swipeDistance)
+            // Controls For mobile
+            if (isFingerDown == false && Input.touchCount > 0 && Input.touches[0].phase == TouchPhase.Began)
             {
-                isFingerDown = false;
-                animator.SetTrigger("Up");
-                if (upTileCheck.collider != null)
+                startPos = Input.touches[0].position;
+                isFingerDown = true;
+            }
+            if (isFingerDown == true && Input.touchCount > 0)
+            {
+                if (Input.touches[0].position.y >= startPos.y + swipeDistance)
                 {
-                    Tile tile = upTileCheck.collider.GetComponent<Tile>();
-                    if (PlayerData.instance.drillPow >= tile.currentHP)
+                    isFingerDown = false;
+                    animator.SetTrigger("Up");
+                    if (upTileCheck.collider != null)
+                    {
+                        Tile tile = upTileCheck.collider.GetComponent<Tile>();
+                        if (PlayerData.instance.drillPow >= tile.currentHP)
+                            transform.position = new Vector2(transform.position.x, transform.position.y + 1f);
+                        else
+                            tile.currentHP = tile.currentHP - PlayerData.instance.drillPow;
+                        PlayerData.instance.currentDurability = PlayerData.instance.currentDurability - 1;
+                    }
+                    else if (upObsCheck.collider != null)
+                        PlayerData.instance.currentDurability = PlayerData.instance.currentDurability - 1;
+                    else
                         transform.position = new Vector2(transform.position.x, transform.position.y + 1f);
-                    else
-                        tile.currentHP = tile.currentHP - PlayerData.instance.drillPow;
-                    PlayerData.instance.currentDurability = PlayerData.instance.currentDurability - 1;
+                    Debug.Log("Up");
                 }
-                else if (upObsCheck.collider != null)
-                    PlayerData.instance.currentDurability = PlayerData.instance.currentDurability - 1;
-                else
-                    transform.position = new Vector2(transform.position.x, transform.position.y + 1f);
-                Debug.Log("Up");
-            }
-            else if (Input.touches[0].position.y <= startPos.y - swipeDistance)
-            {
-                isFingerDown = false;
-                animator.SetTrigger("Down");
-                if (downTileCheck.collider != null)
+                else if (Input.touches[0].position.y <= startPos.y - swipeDistance)
                 {
-                    Tile tile = downTileCheck.collider.GetComponent<Tile>();
-                    if (PlayerData.instance.drillPow >= tile.currentHP)
+                    isFingerDown = false;
+                    animator.SetTrigger("Down");
+                    if (downTileCheck.collider != null)
+                    {
+                        Tile tile = downTileCheck.collider.GetComponent<Tile>();
+                        if (PlayerData.instance.drillPow >= tile.currentHP)
+                            transform.position = new Vector2(transform.position.x, transform.position.y - 1f);
+                        else
+                            tile.currentHP = tile.currentHP - PlayerData.instance.drillPow;
+                        PlayerData.instance.currentDurability = PlayerData.instance.currentDurability - 1;
+                    }
+                    else if (downObsCheck.collider != null)
+                        PlayerData.instance.currentDurability = PlayerData.instance.currentDurability - 1;
+                    else
                         transform.position = new Vector2(transform.position.x, transform.position.y - 1f);
-                    else
-                        tile.currentHP = tile.currentHP - PlayerData.instance.drillPow;
-                    PlayerData.instance.currentDurability = PlayerData.instance.currentDurability - 1;
+                    Debug.Log("Down");
                 }
-                else if (downObsCheck.collider != null)
-                    PlayerData.instance.currentDurability = PlayerData.instance.currentDurability - 1;
-                else
-                    transform.position = new Vector2(transform.position.x, transform.position.y - 1f);
-                Debug.Log("Down");
-            }
-            else if (Input.touches[0].position.x >= startPos.x + swipeDistance)
-            {
-                isFingerDown = false;
-                animator.SetTrigger("Right");
-                if (rightTileCheck.collider != null)
+                else if (Input.touches[0].position.x >= startPos.x + swipeDistance)
                 {
-                    Tile tile = rightTileCheck.collider.GetComponent<Tile>();
-                    if (PlayerData.instance.drillPow >= tile.currentHP)
+                    isFingerDown = false;
+                    animator.SetTrigger("Right");
+                    if (rightTileCheck.collider != null)
+                    {
+                        Tile tile = rightTileCheck.collider.GetComponent<Tile>();
+                        if (PlayerData.instance.drillPow >= tile.currentHP)
+                            transform.position = new Vector2(transform.position.x + 1f, transform.position.y);
+                        else
+                            tile.currentHP = tile.currentHP - PlayerData.instance.drillPow;
+                        PlayerData.instance.currentDurability = PlayerData.instance.currentDurability - 1;
+                    }
+                    else if (rightObsCheck.collider != null)
+                        PlayerData.instance.currentDurability = PlayerData.instance.currentDurability - 1;
+                    else
                         transform.position = new Vector2(transform.position.x + 1f, transform.position.y);
-                    else
-                        tile.currentHP = tile.currentHP - PlayerData.instance.drillPow;
-                    PlayerData.instance.currentDurability = PlayerData.instance.currentDurability - 1;
+                    Debug.Log("Right");
                 }
-                else if (rightObsCheck.collider != null)
-                    PlayerData.instance.currentDurability = PlayerData.instance.currentDurability - 1;
-                else
-                    transform.position = new Vector2(transform.position.x + 1f, transform.position.y);
-                Debug.Log("Right");
-            }
-            else if (Input.touches[0].position.x <= startPos.x - swipeDistance)
-            {
-                isFingerDown = false;
-                animator.SetTrigger("Left");
-                if (leftTileCheck.collider != null)
+                else if (Input.touches[0].position.x <= startPos.x - swipeDistance)
                 {
-                    Tile tile = leftTileCheck.collider.GetComponent<Tile>();
-                    if (PlayerData.instance.drillPow >= tile.currentHP)
+                    isFingerDown = false;
+                    animator.SetTrigger("Left");
+                    if (leftTileCheck.collider != null)
+                    {
+                        Tile tile = leftTileCheck.collider.GetComponent<Tile>();
+                        if (PlayerData.instance.drillPow >= tile.currentHP)
+                            transform.position = new Vector2(transform.position.x - 1f, transform.position.y);
+                        else
+                            tile.currentHP = tile.currentHP - PlayerData.instance.drillPow;
+                        PlayerData.instance.currentDurability = PlayerData.instance.currentDurability - 1;
+                    }
+                    else if (leftObsCheck.collider != null)
+                        PlayerData.instance.currentDurability = PlayerData.instance.currentDurability - 1;
+                    else
                         transform.position = new Vector2(transform.position.x - 1f, transform.position.y);
-                    else
-                        tile.currentHP = tile.currentHP - PlayerData.instance.drillPow;
-                    PlayerData.instance.currentDurability = PlayerData.instance.currentDurability - 1;
+                    Debug.Log("Left");
                 }
-                else if (leftObsCheck.collider != null)
-                    PlayerData.instance.currentDurability = PlayerData.instance.currentDurability - 1;
-                else
-                    transform.position = new Vector2(transform.position.x - 1f, transform.position.y);
-                Debug.Log("Left");
             }
-        }
 
-        if (isFingerDown == true && Input.touchCount > 0 && Input.touches[0].phase == TouchPhase.Ended)
-        {
-            isFingerDown = false;
-        }
-
-
-        // Controls For PC Testing
-        if (isFingerDown == false && Input.GetMouseButtonDown(0))
-        {
-            startPos = Input.mousePosition;
-            isFingerDown = true;
-        }
-        if (isFingerDown == true)
-        {
-            if (Input.mousePosition.y >= startPos.y + swipeDistance)
+            if (isFingerDown == true && Input.touchCount > 0 && Input.touches[0].phase == TouchPhase.Ended)
             {
                 isFingerDown = false;
-                animator.SetTrigger("Up");
-                if (upTileCheck.collider != null)
+            }
+
+
+            // Controls For PC Testing
+            if (isFingerDown == false && Input.GetMouseButtonDown(0))
+            {
+                startPos = Input.mousePosition;
+                isFingerDown = true;
+            }
+            if (isFingerDown == true)
+            {
+                if (Input.mousePosition.y >= startPos.y + swipeDistance)
                 {
-                    Tile tile = upTileCheck.collider.GetComponent<Tile>();
-                    if (PlayerData.instance.drillPow >= tile.currentHP)
+                    isFingerDown = false;
+                    animator.SetTrigger("Up");
+                    if (upTileCheck.collider != null)
+                    {
+                        Tile tile = upTileCheck.collider.GetComponent<Tile>();
+                        if (PlayerData.instance.drillPow >= tile.currentHP)
+                            transform.position = new Vector2(transform.position.x, transform.position.y + 1f);
+                        else
+                            tile.currentHP = tile.currentHP - PlayerData.instance.drillPow;
+                        PlayerData.instance.currentDurability = PlayerData.instance.currentDurability - 1;
+                    }
+                    else if (upObsCheck.collider != null)
+                    {
+                        PlayerData.instance.currentDurability = PlayerData.instance.currentDurability - 1;
+                        SoundManager.Instance.PlaySound("ObstacleHit");
+                    }
+                    else
                         transform.position = new Vector2(transform.position.x, transform.position.y + 1f);
+                    Debug.Log("Up");
+                }
+                else if (Input.mousePosition.y <= startPos.y - swipeDistance)
+                {
+                    isFingerDown = false;
+                    animator.SetTrigger("Down");
+                    if (downTileCheck.collider != null)
+                    {
+                        Tile tile = downTileCheck.collider.GetComponent<Tile>();
+                        if (PlayerData.instance.drillPow >= tile.currentHP)
+                            transform.position = new Vector2(transform.position.x, transform.position.y - 1f);
+                        else
+                            tile.currentHP = tile.currentHP - PlayerData.instance.drillPow;
+                        PlayerData.instance.currentDurability = PlayerData.instance.currentDurability - 1;
+                    }
+                    else if (downObsCheck.collider != null)
+                    {
+                        PlayerData.instance.currentDurability = PlayerData.instance.currentDurability - 1;
+                        SoundManager.Instance.PlaySound("ObstacleHit");
+                    }
                     else
-                        tile.currentHP = tile.currentHP - PlayerData.instance.drillPow;
-                    PlayerData.instance.currentDurability = PlayerData.instance.currentDurability - 1;
-                }
-                else if (upObsCheck.collider != null)
-                {
-                    PlayerData.instance.currentDurability = PlayerData.instance.currentDurability - 1;
-                    SoundManager.Instance.PlaySound("ObstacleHit");
-                }
-                else
-                    transform.position = new Vector2(transform.position.x, transform.position.y + 1f);
-                Debug.Log("Up");
-            }
-            else if (Input.mousePosition.y <= startPos.y - swipeDistance)
-            {
-                isFingerDown = false;
-                animator.SetTrigger("Down");
-                if (downTileCheck.collider != null)
-                {
-                    Tile tile = downTileCheck.collider.GetComponent<Tile>();
-                    if (PlayerData.instance.drillPow >= tile.currentHP)
                         transform.position = new Vector2(transform.position.x, transform.position.y - 1f);
-                    else
-                        tile.currentHP = tile.currentHP - PlayerData.instance.drillPow;
-                    PlayerData.instance.currentDurability = PlayerData.instance.currentDurability - 1;
-                }
-                else if (downObsCheck.collider != null)
-                {
-                    PlayerData.instance.currentDurability = PlayerData.instance.currentDurability - 1;
-                    SoundManager.Instance.PlaySound("ObstacleHit");
-                }
-                else
-                    transform.position = new Vector2(transform.position.x, transform.position.y - 1f);
 
-                Debug.Log("Down");
-            }
-            else if (Input.mousePosition.x >= startPos.x + swipeDistance)
-            {
-                isFingerDown = false;
-                animator.SetTrigger("Right");
-                if (rightTileCheck.collider != null)
+                    Debug.Log("Down");
+                }
+                else if (Input.mousePosition.x >= startPos.x + swipeDistance)
                 {
-                    Tile tile = rightTileCheck.collider.GetComponent<Tile>();
-                    if (PlayerData.instance.drillPow >= tile.currentHP)
+                    isFingerDown = false;
+                    animator.SetTrigger("Right");
+                    if (rightTileCheck.collider != null)
+                    {
+                        Tile tile = rightTileCheck.collider.GetComponent<Tile>();
+                        if (PlayerData.instance.drillPow >= tile.currentHP)
+                            transform.position = new Vector2(transform.position.x + 1f, transform.position.y);
+                        else
+                            tile.currentHP = tile.currentHP - PlayerData.instance.drillPow;
+                        PlayerData.instance.currentDurability = PlayerData.instance.currentDurability - 1;
+                    }
+                    else if (rightObsCheck.collider != null)
+                    {
+                        PlayerData.instance.currentDurability = PlayerData.instance.currentDurability - 1;
+                        SoundManager.Instance.PlaySound("ObstacleHit");
+                    }
+                    else
                         transform.position = new Vector2(transform.position.x + 1f, transform.position.y);
-                    else
-                        tile.currentHP = tile.currentHP - PlayerData.instance.drillPow;
-                    PlayerData.instance.currentDurability = PlayerData.instance.currentDurability - 1;
+                    Debug.Log("Right");
                 }
-                else if (rightObsCheck.collider != null)
+                else if (Input.mousePosition.x <= startPos.x - swipeDistance)
                 {
-                    PlayerData.instance.currentDurability = PlayerData.instance.currentDurability - 1;
-                    SoundManager.Instance.PlaySound("ObstacleHit");
+                    isFingerDown = false;
+                    animator.SetTrigger("Left");
+                    if (leftTileCheck.collider != null)
+                    {
+                        Tile tile = leftTileCheck.collider.GetComponent<Tile>();
+                        if (PlayerData.instance.drillPow >= tile.currentHP)
+                            transform.position = new Vector2(transform.position.x - 1f, transform.position.y);
+                        else
+                            tile.currentHP = tile.currentHP - PlayerData.instance.drillPow;
+                        PlayerData.instance.currentDurability = PlayerData.instance.currentDurability - 1;
+                    }
+                    else if (leftObsCheck.collider != null)
+                    {
+                        PlayerData.instance.currentDurability = PlayerData.instance.currentDurability - 1;
+                        SoundManager.Instance.PlaySound("ObstacleHit");
+                    }
+                    else
+                        transform.position = new Vector2(transform.position.x - 1f, transform.position.y);
+                    Debug.Log("Left");
                 }
-                else
-                    transform.position = new Vector2(transform.position.x + 1f, transform.position.y);
-                Debug.Log("Right");
             }
-            else if (Input.mousePosition.x <= startPos.x - swipeDistance)
+
+            if (isFingerDown == true && Input.GetMouseButtonUp(0))
             {
                 isFingerDown = false;
-                animator.SetTrigger("Left");
-                if (leftTileCheck.collider != null)
-                {
-                    Tile tile = leftTileCheck.collider.GetComponent<Tile>();
-                    if (PlayerData.instance.drillPow >= tile.currentHP)
-                        transform.position = new Vector2(transform.position.x - 1f, transform.position.y);
-                    else
-                        tile.currentHP = tile.currentHP - PlayerData.instance.drillPow;
-                    PlayerData.instance.currentDurability = PlayerData.instance.currentDurability - 1;
-                }
-                else if (leftObsCheck.collider != null)
-                {
-                    PlayerData.instance.currentDurability = PlayerData.instance.currentDurability - 1;
-                    SoundManager.Instance.PlaySound("ObstacleHit");
-                }
-                else
-                    transform.position = new Vector2(transform.position.x - 1f, transform.position.y);
-                Debug.Log("Left");
             }
-        }
-
-        if (isFingerDown == true && Input.GetMouseButtonUp(0))
-        {
-            isFingerDown = false;
         }
 
         if (transform.position.y < lowestPos)
@@ -251,6 +256,8 @@ public class Player : MonoBehaviour
             BGScroller.instance.scrollspeed = -5f;
             StopCoroutine("moveUp");
             animator.SetTrigger("Idle");
+            canInput = false;
+            StartCoroutine("LoadSceneAfterDelay");
         }
     }
 
@@ -262,5 +269,14 @@ public class Player : MonoBehaviour
             transform.position = new Vector2(transform.position.x, transform.position.y + 1f);
             lowestPos = lowestPos + 1f;
         }
+    }
+
+    private IEnumerator LoadSceneAfterDelay()
+    {
+        yield return new WaitForSeconds(3);
+        if (Tile.instance.maxHP == 1)
+            UnityEngine.SceneManagement.SceneManager.LoadScene("Jungle");
+        if (Tile.instance.maxHP == 2)
+            UnityEngine.SceneManagement.SceneManager.LoadScene("Aztec");
     }
 }
