@@ -52,7 +52,7 @@ public class Tile : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D collision)
     {
         Destroy(this.gameObject);
-        Instantiate(particlePrefab, transform.position, Quaternion.identity);
+        // Instantiate(particlePrefab, transform.position, Quaternion.identity);
         PlayerData.instance.money += 1;
         SoundManager.Instance.PlaySound("BlockBreak");
     }

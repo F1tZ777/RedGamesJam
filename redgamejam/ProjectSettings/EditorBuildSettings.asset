@@ -20,4 +20,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Aztec.unity
     guid: 2f9d923f3142dd84e8afae64fae3ffff
+  - enabled: 1
+    path: Assets/Scenes/Victory.unity
+    guid: 0e5d029eaeac7cb4f8c658bebf62f1c2
   m_configObjects: {}

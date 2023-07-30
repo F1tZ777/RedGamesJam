@@ -21,9 +21,8 @@ public class ScoreManager : MonoBehaviour
     void Update()
     {
         scoreText.text = score.ToString();
-        duraText.text = PlayerData.instance.currentDurability.ToString();
         moneyText.text = PlayerData.instance.money.ToString();
-        repairkitText.text = PlayerData.instance.money.ToString();
+        repairkitText.text = PlayerData.instance.repairkit.ToString();
         // highscoreText.text = highscore.ToString();
 
         if (score > highscore)
@@ -50,5 +49,18 @@ public class ScoreManager : MonoBehaviour
     {
         score = PlayerPrefs.GetInt("score");
         highscore = PlayerPrefs.GetInt("highscore");
+    }
+
+    public void repair()
+    {
+        if (PlayerData.instance.repairkit >= 1)
+        {
+            PlayerData.instance.repairkit -= 1;
+            PlayerData.instance.currentDurability += 30;
+            if (PlayerData.instance.currentDurability > PlayerData.instance.maxDurability)
+            {
+                PlayerData.instance.currentDurability = PlayerData.instance.maxDurability;
+            }
+        }
     }
 }

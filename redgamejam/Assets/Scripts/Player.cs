@@ -27,6 +27,7 @@ public class Player : MonoBehaviour
         animator = GetComponent<Animator>();
         animator.SetTrigger("Down");
         lowestPos = transform.position.y;
+        PlayerData.instance.currentDurability = PlayerData.instance.maxDurability;
         StartCoroutine("moveUp");
     }
 
@@ -263,6 +264,8 @@ public class Player : MonoBehaviour
         if (PlayerData.instance.currentDurability == 0)
         {
             Time.timeScale = 0f;
+            canInput = false;
+            SceneManager.instance.gameOver();
         }
     }
 
@@ -283,5 +286,7 @@ public class Player : MonoBehaviour
             UnityEngine.SceneManagement.SceneManager.LoadScene("Jungle");
         if (Tile.instance.maxHP == 2)
             UnityEngine.SceneManagement.SceneManager.LoadScene("Aztec");
+        if (Tile.instance.maxHP == 3)
+            UnityEngine.SceneManagement.SceneManager.LoadScene("Victory");
     }
 }

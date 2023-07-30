@@ -8,7 +8,7 @@ public class UpgradeButton : MonoBehaviour
 {
     [SerializeField] GameObject _super, _ultra;
     [SerializeField] Button _upgradebar;
-    public TMP_Text kitamounttext;
+    public TMP_Text kitamounttext, moneyText;
 
     public void Upgrade()
     {
@@ -31,14 +31,15 @@ public class UpgradeButton : MonoBehaviour
 
     public void RepairKitInventory()
     {
-        /*if (PlayerData.instance.money >= 50)
-        {*/
+        if (PlayerData.instance.money >= 25)
+        {
             PlayerData.instance.repairkit += 1;
-        //}
+        }
     }
 
     private void Update()
     {
         kitamounttext.text = PlayerData.instance.repairkit.ToString();
+        moneyText.text = PlayerData.instance.money.ToString();
     }
 }
