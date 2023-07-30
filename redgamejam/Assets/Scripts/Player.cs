@@ -259,6 +259,11 @@ public class Player : MonoBehaviour
             canInput = false;
             StartCoroutine("LoadSceneAfterDelay");
         }
+
+        if (PlayerData.instance.currentDurability == 0)
+        {
+            Time.timeScale = 0f;
+        }
     }
 
     private IEnumerator moveUp()

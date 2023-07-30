@@ -102,8 +102,7 @@ MonoBehaviour:
   moveTimer: 1
   maxHP: 1
   currentHP: 0
-  stopDuration: 0.8
-  moveDuration: 0.2
+  particlePrefab: {fileID: 6945869289883453764, guid: 9ab497a389a4ce64a8466af05f6d8303, type: 3}
 --- !u!50 &-8239296832626603359
 Rigidbody2D:
   serializedVersion: 4
