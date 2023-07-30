@@ -28,7 +28,7 @@ public class TileManager : MonoBehaviour
         {
             for (int y = 0; y < _height; y++)
             {
-                if (y < 7)
+                if (y >= 1 && y < 7)
                     Instantiate(_tile, new Vector3(x, y), Quaternion.identity);
                 else if (x == 2 && y == 7)
                     Instantiate(_player, new Vector3(x, y), Quaternion.identity);
@@ -46,18 +46,18 @@ public class TileManager : MonoBehaviour
             {
                 if (Random.Range(0, 100) >= 90 && sameRowSpawn <= 3)
                 {
-                    Instantiate(_obstacleTile, new Vector3(x, 0), Quaternion.identity);
+                    Instantiate(_obstacleTile, new Vector3(x, 1), Quaternion.identity);
                     sameRowSpawn++;
                 }
                 else
                 {
-                    Instantiate(_tile, new Vector3(x, 0), Quaternion.identity);
+                    Instantiate(_tile, new Vector3(x, 1), Quaternion.identity);
                     if (sameRowSpawn >= 2)
                         sameRowSpawn -= 2;
                 }
             }
             i--;
         }
-        // Instantiate(_finishLine, new Vector3(2, 0), Quaternion.identity);
+        Instantiate(_finishLine, new Vector3(2, 0), Quaternion.identity);
     }
 }
