@@ -81,7 +81,7 @@ public class Player : MonoBehaviour
                     transform.position = new Vector2(transform.position.x, transform.position.y - 1f);
                 Debug.Log("Down");
             }
-            else if (Input.touches[0].position.x <= startPos.x + swipeDistance)
+            else if (Input.touches[0].position.x >= startPos.x + swipeDistance)
             {
                 isFingerDown = false;
                 animator.SetTrigger("Right");
