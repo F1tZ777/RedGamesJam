@@ -8,7 +8,7 @@ public class ScoreManager : MonoBehaviour
 {
     public static ScoreManager instance;
     public int score, highscore;
-    public TMP_Text scoreText, highscoreText, duraText, moneyText;
+    public TMP_Text scoreText, highscoreText, duraText, moneyText, repairkitText;
 
     void Awake()
     {
@@ -23,6 +23,7 @@ public class ScoreManager : MonoBehaviour
         scoreText.text = score.ToString();
         duraText.text = PlayerData.instance.currentDurability.ToString();
         moneyText.text = PlayerData.instance.money.ToString();
+        repairkitText.text = PlayerData.instance.money.ToString();
         // highscoreText.text = highscore.ToString();
 
         if (score > highscore)
